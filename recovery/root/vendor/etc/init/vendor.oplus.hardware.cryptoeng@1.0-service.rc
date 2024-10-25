@@ -1,0 +1,29 @@
+on fs
+
+on property:hwservicemanager.ready=true
+    start hal_cryptoeng_oppo
+
+on property:ro.crypto.state=unsupported
+    stop hal_cryptoeng_oppo
+
+on property:ro.crypto.state=unencrypted
+    stop hal_cryptoeng_oppo
+
+on property:twrp.decrypt.done=true
+    stop hal_cryptoeng_oppo
+
+on property:enable.fbe.service=0
+    stop hal_cryptoeng_oppo
+
+on property:twrp.all.users.decrypted=true
+    stop hal_cryptoeng_oppo
+
+on property:ro.crypto.type=block && property:ro.crypto.fs_crypto_blkdev=*
+    stop hal_cryptoeng_oppo
+
+service hal_cryptoeng_oppo /system/bin/vendor.oplus.hardware.cryptoeng@1.0-service
+    user root
+    group root input sdcard_rw sdcard_r
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib:/system/lib64:/system/lib:/sbin
+    disabled
+    seclabel u:r:recovery:s0
