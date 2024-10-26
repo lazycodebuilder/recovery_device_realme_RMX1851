@@ -39,11 +39,6 @@ PRODUCT_PACKAGES += \
     f2fs_io \
     check_f2fs
 
-# HACK: Set vendor patch level
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.bootimage.build.date.utc=0 \
-    ro.build.date.utc=0
-
 # oem otacerts
 PRODUCT_EXTRA_RECOVERY_KEYS += \
     $(DEVICE_PATH)/security/realmelocal \
