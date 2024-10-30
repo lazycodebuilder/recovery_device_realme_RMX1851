@@ -33,12 +33,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	vendor.gatekeeper.disable_spu=true \
 	ro.crypto.dm_default_key.options_format.version=2
 
-# F2FS utilities
-PRODUCT_PACKAGES += \
-    sg_write_buffer \
-    f2fs_io \
-    check_f2fs
-
 # oem otacerts
 PRODUCT_EXTRA_RECOVERY_KEYS += \
     $(DEVICE_PATH)/security/realmelocal \
