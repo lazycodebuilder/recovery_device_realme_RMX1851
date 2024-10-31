@@ -37,3 +37,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_EXTRA_RECOVERY_KEYS += \
     $(DEVICE_PATH)/security/realmelocal \
     $(DEVICE_PATH)/security/realmespecial
+
+
+ifeq ($(INCLUDE_PREBUILT_ICU_LIBS), true)
+PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*.so,$(LOCAL_PATH)/prebuilt/icu_libraries,$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64)
+endif

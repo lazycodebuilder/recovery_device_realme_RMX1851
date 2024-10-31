@@ -44,6 +44,7 @@ Current state of features:
 ```sh
 source build/envsetup.sh
 export ALLOW_MISSING_DEPENDENCIES=true && export SOONG_VERBOSE=true
+export INCLUDE_PREBUILT_ICU_LIBS=true
 lunch twrp_RMX1851-eng
 make clean && mka recoveryimage | tree r3p-rec.log
 ```
