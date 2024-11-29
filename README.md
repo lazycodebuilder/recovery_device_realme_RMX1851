@@ -42,9 +42,8 @@ Current state of features:
 
 ## Build Instructions
 ```sh
+export TARGET_RECOVERY_TYPE=twrp-a9 && export INCLUDE_DEBUG_FLAGS=true
 source build/envsetup.sh
 export ALLOW_MISSING_DEPENDENCIES=true && export SOONG_VERBOSE=true
-export INCLUDE_PREBUILT_ICU_LIBS=true
-lunch twrp_RMX1851-eng
-make clean && mka recoveryimage | tree r3p-rec.log
+lunch twrp_RMX1851-eng && mka adbd recoveryimage | tee r3p-rec.log
 ```
