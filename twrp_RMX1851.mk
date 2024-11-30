@@ -14,11 +14,17 @@ PRODUCT_RELEASE_NAME := RMX1851
 # Default device path for tree
 DEVICE_PATH := device/$(PRODUCT_BRAND)/$(PRODUCT_DEVICE)
 
-# Configure twrp common.mk
-$(call inherit-product, vendor/twrp/config/common.mk)
+ifeq ($(TARGET_RECOVERY_TYPE), pbrp-a*)
+    # Configure pbrp common.mk
+    $(call inherit-product, vendor/pb/config/common.mk)
+else
+    # Configure twrp common.mk
+    $(call inherit-product, vendor/twrp/config/common.mk)
+endif
 
 # Configure
 $(call inherit-product, $(DEVICE_PATH)/r3p.mk)
+$(call inherit-product, $(DEVICE_PATH)/BoardConfigRecovery.mk)
 $(call inherit-product, $(DEVICE_PATH)/device.mk)
 
 # Configure
