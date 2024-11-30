@@ -14,7 +14,7 @@ PRODUCT_RELEASE_NAME := RMX1851
 # Default device path for tree
 DEVICE_PATH := device/$(PRODUCT_BRAND)/$(PRODUCT_DEVICE)
 
-ifeq ($(TARGET_RECOVERY_TYPE), pbrp-a*)
+ifeq ($(TARGET_RECOVERY_TYPE), pbrp)
     # Configure pbrp common.mk
     $(call inherit-product, vendor/pb/config/common.mk)
 else
