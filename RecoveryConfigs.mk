@@ -47,30 +47,30 @@ else ifeq ($(TARGET_RECOVERY_TYPE), pbrp)
     # Disable default AVB2 patching
     PB_DISABLE_DEFAULT_PATCH_AVB2 := true
     # Path to the torch (flashlight) LED
-    PB_TORCH_PATH := "/sys/class/leds/led:torch_0"
+    PB_TORCH_PATH := /sys/class/leds/led:torch_0
     # Maximum brightness level for the torch LED
     PB_TORCH_MAX_BRIGHTNESS := 500
 else ifeq ($(TARGET_RECOVERY_TYPE), ofrp)
     ## OFRP Configuration
     # Set the locale to ensure consistent behavior and character encoding
-    LC_ALL := "C.UTF-8"
+    LC_ALL := C.UTF-8
     ## Build settings
     # Use TWRP's recovery image builder
     FOX_USE_TWRP_RECOVERY_IMAGE_BUILDER := 1
     # Target architecture is arm64
     TARGET_ARCH := arm64
     # Maintainer's name
-    OF_MAINTAINER := "LazymeaoProjects"
+    OF_MAINTAINER := LazymeaoProjects
     # Version of OrangeFox
-    FOX_VERSION := "v0.1.2"
+    FOX_VERSION := v0.1.2
     # Variant based on Android version
 	ifeq ($(TARGET_RECOVERY_VERSION), A9)
-    FOX_VARIANT := "A9-To-A11"
+    FOX_VARIANT := A9-To-A11
 	else
-    FOX_VARIANT := "12.1-To-A15"
+    FOX_VARIANT := A12.1-To-A15
 	endif
     # Build type is stable
-    FOX_BUILD_TYPE := "Stable"
+    FOX_BUILD_TYPE := Stable
     ## Decryption settings
     # Do not reload after decryption
     OF_NO_RELOAD_AFTER_DECRYPTION := 1
@@ -119,9 +119,9 @@ else ifeq ($(TARGET_RECOVERY_TYPE), ofrp)
     FOX_DISABLE_APP_MANAGER := 1
     ## Device settings
     # Alternative device names
-    TARGET_DEVICE_ALT := "RMX1851,RMX1851EX,RMX1851EU,RMX1851EUEX,RMX1851CN,nicky"
+    TARGET_DEVICE_ALT := RMX1851,RMX1851EX,RMX1851EU,RMX1851EUEX,RMX1851CN,nicky
     # Include quick backup list for restoring critical partitions
-    OF_QUICK_BACKUP_LIST := "/rboot;"
+    OF_QUICK_BACKUP_LIST := /rboot;
     # Enable TWRP compatibility mode
     OF_TWRP_COMPATIBILITY_MODE := 1
     # Use TWRP's SAR detection

@@ -24,7 +24,7 @@ endif
 
 # Configure
 $(call inherit-product, $(DEVICE_PATH)/r3p.mk)
-$(call inherit-product, $(DEVICE_PATH)/BoardConfigRecovery.mk)
+$(call inherit-product, $(DEVICE_PATH)/RecoveryConfigs.mk)
 $(call inherit-product, $(DEVICE_PATH)/device.mk)
 
 # Configure

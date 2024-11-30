@@ -42,11 +42,10 @@ Current state of features:
 
 ## Build Instructions
 ```sh
-#type one type only from (twrp, pbrp, ofrp, shrp)
-export TARGET_RECOVERY_TYPE=twrp
-#type one type only from (A9, A12.1)
-export TARGET_RECOVERY_VERSION=A12.1
-export INCLUDE_DEBUG_FLAGS=true
+export TARGET_RECOVERY_TYPE=twrp #type one type only from (twrp, pbrp, ofrp, shrp)
+export TARGET_RECOVERY_VERSION=A12.1 #type one type only from (A9, A12.1)
+export INCLUDE_DEBUG_FLAGS=true #optional  flag
+# necessary build config
 source build/envsetup.sh
 export ALLOW_MISSING_DEPENDENCIES=true && export SOONG_VERBOSE=true
 lunch twrp_RMX1851-eng && mka adbd recoveryimage | tee out/r3p-rec.log
