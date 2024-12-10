@@ -52,9 +52,9 @@
 /data               auto    /dev/block/bootdevice/by-name/userdata        flags=fileencryption=ice:aes-256-cts
 
 # Storage partitions
-/internal_storage   auto    /data/media/0                                 flags=display="Internal-Storage";usermrf;fsflags="rw,bind";backup=1
+/internal_storage   auto    /data/media/0                                 flags=display="Internal-Storage";usermrf;fsflags="rw,bind";backup=0
 /sdcard1            auto    /dev/block/mmcblk1p1                          flags=display="MicroSD";storage;wipeingui=0;removable
 /usb_otg            auto    /dev/block/sda1       /dev/block/sda          flags=display="USB-Storage";storage;fsflags="utf8";wipeingui=0;removable
 
 # Restore partitions
-/persist_image      emmc    /dev/block/bootdevice/by-name/persist         flags=display="Persist Image";backup=0;
+/persist_image      emmc    /dev/block/bootdevice/by-name/persist         flags=display="Persist Image";backup=0

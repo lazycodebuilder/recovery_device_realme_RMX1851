@@ -31,9 +31,9 @@ endif
 ifeq ($(TARGET_RECOVERY_TYPE), twrp)
     ## TWRP Configuration
     ## TWRP-specific flags here
-	# Add TW_DEVICE_VERSION
+    # Add TW_DEVICE_VERSION
     TW_DEVICE_VERSION := v0.1.2 | LazymeaoProjects
-	# Statusbar icons flags
+    # Statusbar icons flags
     TW_STATUS_ICONS_ALIGN := center
     TW_CUSTOM_CPU_POS := 40
     TW_CUSTOM_CLOCK_POS := 300
@@ -47,7 +47,7 @@ else ifeq ($(TARGET_RECOVERY_TYPE), pbrp)
     # Disable default AVB2 patching
     PB_DISABLE_DEFAULT_PATCH_AVB2 := true
     # Path to the torch (flashlight) LED
-    PB_TORCH_PATH := /sys/class/leds/led:torch_0
+    PB_TORCH_PATH := "/sys/class/leds/led:torch_0"
     # Maximum brightness level for the torch LED
     PB_TORCH_MAX_BRIGHTNESS := 500
 else ifeq ($(TARGET_RECOVERY_TYPE), ofrp)
@@ -64,11 +64,11 @@ else ifeq ($(TARGET_RECOVERY_TYPE), ofrp)
     # Version of OrangeFox
     FOX_VERSION := v0.1.2
     # Variant based on Android version
-	ifeq ($(TARGET_RECOVERY_VERSION), A9)
+    ifeq ($(TARGET_RECOVERY_VERSION), A9)
     FOX_VARIANT := A9-To-A11
-	else
+    else
     FOX_VARIANT := A12.1-To-A15
-	endif
+    endif
     # Build type is stable
     FOX_BUILD_TYPE := Stable
     ## Decryption settings
@@ -155,7 +155,7 @@ else ifeq ($(TARGET_RECOVERY_TYPE), ofrp)
     OF_ENABLE_LPTOOLS := 1
 else ifeq ($(TARGET_RECOVERY_TYPE), shrp)
     ## TWRP-specific flags here
-	# Add TW_DEVICE_VERSION
+    # Add TW_DEVICE_VERSION
     TW_DEVICE_VERSION := v0.1.2
     ## SHRP Configuration
     # Device codename
