@@ -74,7 +74,7 @@ TW_INCLUDE_RESETPROP := true
 TW_INCLUDE_LIBRESETPROP := true
 TW_INCLUDE_REPACKTOOLS := true
 
-ifeq ($(INCLUDE_FASTBOOTD),true)
+ifeq ($(LAZY_INCLUDE_FASTBOOTD), true)
     TW_INCLUDE_FASTBOOTD := true
 endif
 
@@ -84,7 +84,7 @@ TW_INCLUDE_FB2PNG := true
 # APEX
 DEXPREOPT_GENERATE_APEX_IMAGE := true
 
-ifeq ($(INCLUDE_DEBUG_FLAGS),true)
+ifeq ($(LAZY_INCLUDE_DEBUG_FLAGS), true)
     # Debug Flags
     TWRP_INCLUDE_LOGCAT := true
     TWRP_EVENT_LOGGING := true

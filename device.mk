@@ -8,7 +8,7 @@ PRODUCT_PACKAGES += \
     android.hardware.health@2.0-impl-default.recovery \
     android.hardware.health@2.1-impl.recovery
 
-ifeq ($(INCLUDE_FASTBOOTD),true)
+ifeq ($(LAZY_INCLUDE_FASTBOOTD), true)
     # fastbootd
     PRODUCT_PACKAGES += \
         android.hardware.fastboot@1.1-impl-mock \
@@ -40,6 +40,6 @@ PRODUCT_EXTRA_RECOVERY_KEYS += \
     $(DEVICE_PATH)/security/realmelocal \
     $(DEVICE_PATH)/security/realmespecial
 
-ifeq ($(INCLUDE_PREBUILT_ICU_LIBS), true)
+ifeq ($(LAZY_INCLUDE_PREBUILT_ICU_LIBS), true)
     PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*.so,$(LOCAL_PATH)/prebuilt/icu_libraries,$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64)
 endif

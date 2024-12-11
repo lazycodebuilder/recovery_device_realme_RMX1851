@@ -3,32 +3,34 @@
 # SPDX-License-Identifier: Apache-2.0
 # ================================================================
 
-# Set default recovery type and version if not defined
-TARGET_RECOVERY_TYPE ?= twrp
-TARGET_RECOVERY_VERSION ?= A12.1
+# Target recovery type (default: twrp)
+LAZY_TARGET_RECOVERY_TYPE ?= twrp
+
+# Legacy build Support (default: false)
+LAZY_SUPPORT_LEGACY_BUILD ?= false
 
 # Include Debug Flags (default: false)
-INCLUDE_DEBUG_FLAGS ?= false
+LAZY_INCLUDE_DEBUG_FLAGS ?= false
 
 # ================================================================
 # Common Settings
 # ================================================================
-# Include Prebuilt ICU Libraries for Android 9
-ifeq ($(TARGET_RECOVERY_VERSION), A9)
-    INCLUDE_PREBUILT_ICU_LIBS := true
+# Include Prebuilt ICU Libraries for Legacy Build
+ifeq ($(LAZY_SUPPORT_LEGACY_BUILD), true)
+    LAZY_INCLUDE_PREBUILT_ICU_LIBS := true
 endif
 
-# FastbootD configuration based on recovery type and version
-ifeq ($(TARGET_RECOVERY_TYPE)_$(TARGET_RECOVERY_VERSION), pbrp_A9)
-    INCLUDE_FASTBOOTD := false
+# FastbootD configuration based on recovery type and Legacy Support
+ifeq ($(LAZY_TARGET_RECOVERY_TYPE)_$(LAZY_SUPPORT_LEGACY_BUILD), pbrp_true)
+    LAZY_INCLUDE_FASTBOOTD := false
 else
-    INCLUDE_FASTBOOTD := true
+    LAZY_INCLUDE_FASTBOOTD := true
 endif
 
 # ================================================================
 # Recovery Type Specific Settings
 # ================================================================
-ifeq ($(TARGET_RECOVERY_TYPE), twrp)
+ifeq ($(LAZY_TARGET_RECOVERY_TYPE), twrp)
     ## TWRP Configuration
     ## TWRP-specific flags here
     # Add TW_DEVICE_VERSION
@@ -38,7 +40,7 @@ ifeq ($(TARGET_RECOVERY_TYPE), twrp)
     TW_CUSTOM_CPU_POS := 40
     TW_CUSTOM_CLOCK_POS := 300
     TW_CUSTOM_BATTERY_POS := 810
-else ifeq ($(TARGET_RECOVERY_TYPE), pbrp)
+else ifeq ($(LAZY_TARGET_RECOVERY_TYPE), pbrp)
     ## PBRP Configuration
     # Disable default DM-Verity
     PB_DISABLE_DEFAULT_DM_VERITY := true
@@ -50,7 +52,7 @@ else ifeq ($(TARGET_RECOVERY_TYPE), pbrp)
     PB_TORCH_PATH := "/sys/class/leds/led:torch_0"
     # Maximum brightness level for the torch LED
     PB_TORCH_MAX_BRIGHTNESS := 500
-else ifeq ($(TARGET_RECOVERY_TYPE), ofrp)
+else ifeq ($(LAZY_TARGET_RECOVERY_TYPE), ofrp)
     ## OFRP Configuration
     # Set the locale to ensure consistent behavior and character encoding
     LC_ALL := C.UTF-8
@@ -63,11 +65,11 @@ else ifeq ($(TARGET_RECOVERY_TYPE), ofrp)
     OF_MAINTAINER := LazymeaoProjects
     # Version of OrangeFox
     FOX_VERSION := v0.1.2
-    # Variant based on Android version
-    ifeq ($(TARGET_RECOVERY_VERSION), A9)
-    FOX_VARIANT := A9-To-A11
+    # Variant based on Legacy Support
+    ifeq ($(LAZY_SUPPORT_LEGACY_BUILD), true)
+        FOX_VARIANT := A9-To-A11
     else
-    FOX_VARIANT := A12.1-To-A15
+        FOX_VARIANT := A12.1-To-A15
     endif
     # Build type is stable
     FOX_BUILD_TYPE := Stable
@@ -153,7 +155,7 @@ else ifeq ($(TARGET_RECOVERY_TYPE), ofrp)
     FOX_USE_NANO_EDITOR := 1
     # Enable LP tools
     OF_ENABLE_LPTOOLS := 1
-else ifeq ($(TARGET_RECOVERY_TYPE), shrp)
+else ifeq ($(LAZY_TARGET_RECOVERY_TYPE), shrp)
     ## TWRP-specific flags here
     # Add TW_DEVICE_VERSION
     TW_DEVICE_VERSION := v0.1.2

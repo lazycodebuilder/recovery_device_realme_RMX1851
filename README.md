@@ -42,11 +42,15 @@ Current state of features:
 
 ## Build Instructions
 ```sh
-export TARGET_RECOVERY_TYPE=twrp #type one type only from (twrp, pbrp, ofrp, shrp)
-export TARGET_RECOVERY_VERSION=A12.1 #type one type only from (A9, A12.1)
-export INCLUDE_DEBUG_FLAGS=true #optional  flag
+export LAZY_TARGET_RECOVERY_TYPE=twrp #set twrp, pbrp, ofrp or shrp depends on recovery project
+export LAZY_SUPPORT_LEGACY_BUILD=false #optional  flag: set false or true depens on branch
+export LAZY_INCLUDE_DEBUG_FLAGS=false #optional  flag
 # necessary build config
 source build/envsetup.sh
 export ALLOW_MISSING_DEPENDENCIES=true && export SOONG_VERBOSE=true
+lunch twrp_RMX1851-userdebug && mka adbd recoveryimage | tee out/r3p-rec.log
+or
+lunch twrp_RMX1851-userdebug && mka pbrp | tee out/r3p-rec.log
+or
 lunch twrp_RMX1851-eng && mka adbd recoveryimage | tee out/r3p-rec.log
 ```
