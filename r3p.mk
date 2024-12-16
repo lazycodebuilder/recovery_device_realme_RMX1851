@@ -35,18 +35,20 @@ BOARD_KERNEL_CMDLINE += service_locator.enable=1
 BOARD_KERNEL_CMDLINE += androidboot.configfs=true
 BOARD_KERNEL_CMDLINE += androidboot.usbcontroller=a600000.dwc3
 BOARD_KERNEL_CMDLINE += swiotlb=1
-BOARD_KERNEL_CMDLINE += loop.max_part=7
-BOARD_KERNEL_CMDLINE += printk.devkmsg=on
+BOARD_KERNEL_CMDLINE += loop.max_part=16
 BOARD_KERNEL_CMDLINE += kpti=off
-
-BOARD_KERNEL_CMDLINE += loglevel=8
-BOARD_KERNEL_CMDLINE += fbcon=map:1
-BOARD_KERNEL_CMDLINE += memblock=debug
-BOARD_KERNEL_CMDLINE += dt.debug=1
-
 BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 
-PRODUCT_PROPERTY_OVERRIDES += persist.logd.size=1M
+ifeq ($(LAZY_INCLUDE_DEBUG_FLAGS), true)
+    # Kernel debug-related command line options
+    BOARD_KERNEL_CMDLINE += printk.devkmsg=on
+    BOARD_KERNEL_CMDLINE += memblock=debug
+    BOARD_KERNEL_CMDLINE += dt.debug=1
+    BOARD_KERNEL_CMDLINE += loglevel=8
+    BOARD_KERNEL_CMDLINE += fbcon=map:1
+	
+    PRODUCT_PROPERTY_OVERRIDES += persist.logd.size=1M
+endif
 
 BOARD_BOOTIMG_HEADER_VERSION := 1
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOTIMG_HEADER_VERSION)
