@@ -3,32 +3,44 @@
 # SPDX-License-Identifier: Apache-2.0
 # ================================================================
 
-# Target recovery type (default: twrp)
-LAZY_TARGET_RECOVERY_TYPE ?= twrp
+# ================================================================
+# Configuration Validation and Defaults
+# ================================================================
+# Supported recovery types
+VALID_RECOVERY_TYPES := twrp pbrp ofrp shrp
 
-# Legacy build Support (default: false)
-LAZY_SUPPORT_LEGACY_BUILD ?= false
+# Validate recovery type
+ifeq ($(filter $(LAZY_TARGET_RECOVERY_TYPE),$(VALID_RECOVERY_TYPES)),)
+    $(warning Invalid recovery type specified for LAZY_TARGET_RECOVERY_TYPE. Supported types are: '$(VALID_RECOVERY_TYPES)'. Using default value: 'twrp'.)
+    # Set default recovery type to 'twrp'
+    LAZY_TARGET_RECOVERY_TYPE ?= twrp
+endif
 
-# Include Debug Flags (default: false)
-LAZY_INCLUDE_DEBUG_FLAGS ?= false
+# Validate legacy build support value
+ifeq ($(filter true false,$(LAZY_SUPPORT_LEGACY_BUILD)),)
+    $(warning Invalid value for LAZY_SUPPORT_LEGACY_BUILD. Accepted values are 'true' or 'false'. Using default value: 'false'.)
+    # Set default legacy build support to 'false'
+    LAZY_SUPPORT_LEGACY_BUILD ?= false
+endif
+
+# Validate debug flag inclusion value
+ifeq ($(filter true false,$(LAZY_INCLUDE_DEBUG_FLAGS)),)
+    $(warning Invalid value for LAZY_INCLUDE_DEBUG_FLAGS. Accepted values are 'true' or 'false'. Using default value: 'false'.)
+    # Set default debug flag inclusion to 'false'
+    LAZY_INCLUDE_DEBUG_FLAGS ?= false
+endif
 
 # ================================================================
-# Common Settings
+# Common Feature Configuration
 # ================================================================
 # Include Prebuilt ICU Libraries for Legacy Build
-ifeq ($(LAZY_SUPPORT_LEGACY_BUILD), true)
-    LAZY_INCLUDE_PREBUILT_ICU_LIBS := true
-endif
+LAZY_INCLUDE_PREBUILT_ICU_LIBS := $(if $(filter true,$(LAZY_SUPPORT_LEGACY_BUILD)),true)
 
 # FastbootD configuration based on recovery type and Legacy Support
-ifeq ($(LAZY_TARGET_RECOVERY_TYPE)_$(LAZY_SUPPORT_LEGACY_BUILD), pbrp_true)
-    LAZY_INCLUDE_FASTBOOTD := false
-else
-    LAZY_INCLUDE_FASTBOOTD := true
-endif
+LAZY_INCLUDE_FASTBOOTD := $(if $(filter shrp_true pbrp_true,$(LAZY_TARGET_RECOVERY_TYPE)_$(LAZY_SUPPORT_LEGACY_BUILD)),false,true)
 
 # ================================================================
-# Recovery Type Specific Settings
+# Recovery Type Specific Configurations
 # ================================================================
 ifeq ($(LAZY_TARGET_RECOVERY_TYPE), twrp)
     ## TWRP Configuration
@@ -66,11 +78,7 @@ else ifeq ($(LAZY_TARGET_RECOVERY_TYPE), ofrp)
     # Version of OrangeFox
     FOX_VERSION := v0.1.2
     # Variant based on Legacy Support
-    ifeq ($(LAZY_SUPPORT_LEGACY_BUILD), true)
-        FOX_VARIANT := A9-To-A11
-    else
-        FOX_VARIANT := A12.1-To-A15
-    endif
+    FOX_VARIANT := $(if $(filter true,$(LAZY_SUPPORT_LEGACY_BUILD)),A9-To-A11,A12.1-To-A15)
     # Build type is stable
     FOX_BUILD_TYPE := Stable
     ## Decryption settings
@@ -194,6 +202,8 @@ else ifeq ($(LAZY_TARGET_RECOVERY_TYPE), shrp)
     # Custom led paths for flashlight
     SHRP_CUSTOM_FLASHLIGHT := true
     SHRP_FONP_1 := /sys/class/leds/led:torch_0/brightness
+    SHRP_FONP_2 := /sys/class/leds/led:torch_1/brightness
+    SHRP_FONP_3 := /sys/class/leds/led:switch_0/brightness
     # Max brightness of flashlight
     SHRP_FLASH_MAX_BRIGHTNESS := 500
     ## Addon - Substratum Overlay (OMS -Normal- disabler)
